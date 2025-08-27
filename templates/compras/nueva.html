@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>🛒 Registrar nueva compra</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.cedula.label(class="form-label") }}
+            {{ form.cedula(class="form-control", id="cedula-input") }}
+        </div>
+        
+        <!-- Aquí se mostrarán los datos del cliente -->
+        <div id="cliente-info" class="alert alert-secondary d-none"></div>
+
+        <div class="mb-3">
+            {{ form.monto.label(class="form-label") }}
+            {{ form.monto(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-success">✅ Registrar</button>
+        <a href="{{ url_for('cliente.listar_clientes') }}" class="btn btn-secondary">⬅️ Cancelar</a>
+    </form>
+</div>
+
+<script>
+document.getElementById("cedula-input").addEventListener("blur", function() {
+    const cedula = this.value;
+    const infoDiv = document.getElementById("cliente-info");
+
+    if (cedula.trim() !== "") {
+        fetch(`/clientes/buscar/${cedula}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.existe) {
+                    infoDiv.classList.remove("d-none", "alert-danger");
+                    infoDiv.classList.add("alert-success");
+                    infoDiv.innerHTML = `
+                        <strong>Cliente encontrado:</strong><br>
+                        Nombre: ${data.nombre}<br>
+                        Correo: ${data.correo}<br>
+                        Teléfono: ${data.telefono}
+                    `;
+                } else {
+                    infoDiv.classList.remove("d-none", "alert-success");
+                    infoDiv.classList.add("alert-danger");
+                    infoDiv.innerHTML = "⚠️ No se encontró un cliente con esa cédula.";
+                }
+            });
+    }
+});
+</script>
+
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-body p-5 text-center">
+        
+        <h2 class="fw-bold mb-4" style="color:#6c5ce7;">Consulta tu progreso</h2>
+        <p class="text-muted mb-4">Ingresa tu número de documento para ver tus puntos y beneficios acumulados en <span class="fw-bold">Cielo Alto</span>.</p>
+
+        <form method="POST" action="{{ url_for('users.consulta') }}">
+          <div class="mb-4">
+            <input type="text" name="documento" class="form-control form-control-lg text-center rounded-pill border-2" placeholder="Número de documento" required>
+          </div>
+          <button type="submit" class="btn btn-lg px-5 py-2 text-white rounded-pill shadow" style="background: linear-gradient(135deg, #81ecec, #74b9ff);">
+            Consultar
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

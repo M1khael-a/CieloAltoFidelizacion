@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">📋 Lista de Clientes</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <!-- Botones a la izquierda -->
+  <div>
+    <a href="{{ url_for('cliente.crear_cliente') }}" class="btn btn-primary me-2">
+      ➕ Crear Cliente
+    </a>
+    <a href="{{ url_for('compra.nueva_compra') }}" class="btn btn-success">
+      🛒 Nueva compra
+    </a>
+  </div>
+
+  <!-- Buscador a la derecha -->
+  <form method="GET" action="{{ url_for('cliente.listar_clientes') }}" class="d-flex">
+    <input type="text" name="cedula" class="form-control me-2" placeholder="Buscar por cédula">
+    <button class="btn btn-primary me-2" type="submit">Buscar</button>
+    <a href="{{ url_for('cliente.listar_clientes') }}" class="btn btn-secondary">Limpiar</a>
+  </form>
+</div>
+
+
+    <!-- 🟢 Tabla de clientes -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Puntos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.cedula }}</td>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.correo }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.fecha_nacimiento.strftime('%d-%m-%Y') if cliente.fecha_nacimiento else '' }}</td>
+                <td>{{ cliente.puntos }}</td>
+                <td>
+                    <a href="{{ url_for('cliente.editar_cliente', cliente_id=cliente.id) }}" class="btn btn-sm btn-secondary">✏️</a>
+                    <a href="{{ url_for('compra.historico_compras', cliente_id=cliente.id) }}" class="btn btn-info btn-sm">⏰</a>
+                    <a href="{{ url_for('cliente.redimir', cliente_id=cliente.id) }}" class="btn btn-sm btn-warning">🎁</a>
+                    <form action="{{ url_for('cliente.eliminar_cliente', cliente_id=cliente.id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Seguro que deseas eliminar este cliente?');">
+                        <button type="submit" class="btn btn-danger btn-sm">🗑️ Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="text-center">No se encontraron clientes</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

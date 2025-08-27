@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow border-0 rounded-4">
+      <div class="card-body p-4">
+
+        {% if cliente %}
+          <h4 class="fw-bold text-center mb-3">Redimir Puntos</h4>
+          <p class="text-center">
+            Cliente: <strong>{{ cliente.nombre }}</strong><br>
+            Cédula: {{ cliente.cedula }}<br>
+            Puntos actuales: <span class="fw-bold">{{ cliente.puntos }}</span>
+          </p>
+
+          <form method="POST">
+            <div class="mb-3">
+              <label for="premio_id" class="form-label">Selecciona un premio</label>
+              <select name="premio_id" id="premio_id" class="form-select">
+                {% for premio in premios %}
+                  <option value="{{ premio.id }}">
+                    {{ premio.nombre }} ({{ premio.puntos_requeridos }} puntos)
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Confirmar Redención</button>
+          </form>
+
+          {% if premio_redimido %}
+            <div class="mt-3 text-center">
+              <a href="{{ url_for('cliente.imprimir_ticket', cliente_id=cliente.id, premio_id=premio_redimido.id) }}" 
+                target="_blank" 
+                class="btn btn-outline-dark w-100">
+                🖨️ Imprimir Ticket
+              </a>
+            </div>
+          {% endif %}
+
+        {% else %}
+          <h4 class="text-center mb-3">Buscar Cliente para Redimir</h4>
+          <form method="POST">
+            <div class="mb-3">
+              <label for="cedula" class="form-label">Cédula</label>
+              <input type="text" class="form-control" id="cedula" name="cedula" required>
+            </div>
+            <button type="submit" class="btn btn-morado w-100">Buscar Cliente</button>
+          </form>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

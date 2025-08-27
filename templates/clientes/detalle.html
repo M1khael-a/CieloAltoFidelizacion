@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Detalle Cliente{% endblock %}
+
+{% block content %}
+<h2>Detalle de Cliente</h2>
+
+<p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+<p><strong>Correo:</strong> {{ cliente.correo }}</p>
+<p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+<p><strong>Fecha de nacimiento:</strong> {{ cliente.fecha_nacimiento.strftime("%d-%m-%Y") if cliente.fecha_nacimiento or "No registrada" }}</p>
+<p><strong>Puntos:</strong> {{ cliente.puntos }}</p>
+
+<a href="{{ url_for('cliente.listar_clientes') }}">Volver</a> |
+<a href="{{ url_for('cliente.editar_cliente', cliente_id=cliente.id) }}">Editar</a>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>✏️ Editar Cliente</h2>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.cedula.label(class="form-label") }}
+        {{ form.cedula(class="form-control") }}
+        {% for error in form.cedula.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+
+    <div class="mb-3">
+        {{ form.nombre.label(class="form-label") }}
+        {{ form.nombre(class="form-control") }}
+        {% for error in form.nombre.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.correo.label(class="form-label") }}
+        {{ form.correo(class="form-control") }}
+        {% for error in form.correo.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.telefono.label(class="form-label") }}
+        {{ form.telefono(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.fecha_nacimiento.label(class="form-label") }}
+        {{ form.fecha_nacimiento(class="form-control", type="date") }}
+        {% for error in form.fecha_nacimiento.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-warning">💾 Actualizar</button>
+    <a href="{{ url_for('cliente.listar_clientes') }}" class="btn btn-secondary">⬅️ Volver</a>
+</form>
+{% endblock %}

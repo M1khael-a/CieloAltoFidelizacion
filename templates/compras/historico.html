@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Histórico de compras de {{ cliente.nombre }} ({{ cliente.cedula }})</h2>
+    <p><strong>Total de puntos acumulados:</strong> {{ cliente.puntos }}</p>
+
+    {% if compras %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Puntos generados</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for compra in compras %}
+                    <tr>
+                        <td>{{ compra.fecha|bogota_time }}</td>
+                        <td>${{ "%.2f"|format(compra.monto_total) }}</td>
+                        <td>{{ compra.puntos_generados }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay compras registradas aún.</p>
+    {% endif %}
+</div>
+{% endblock %}

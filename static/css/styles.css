@@ -1,0 +1,62 @@
+/* styles.css – estilos personalizados para Cielo Alto */
+
+/* Logo en la navbar */
+.navbar-brand img {
+  height: 80px;
+  width: auto;
+}
+
+/* Ajuste en pantallas pequeñas */
+@media (max-width: 576px) {
+  .navbar-brand img {
+    height: 32px;
+  }
+}
+
+/* Texto de la marca */
+.navbar-brand span {
+  font-weight: bold;
+  font-size: 1.25rem; /* ~20px */
+}
+
+.navbar .navbar-brand {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cumpleanios-title {
+    color: #f8e2ea;
+    background-color: #c0426c; /* lavanda suave */
+    padding: 6px 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.versiculo-title {
+    color: #1E90FF; /* Azul cielo */
+    font-weight: bold;
+}
+
+.versiculo-box {
+    background-color: #E6F2FF; /* Azul muy suave */
+    border-left: 5px solid #1E90FF; /* Toque elegante */
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.progress-bar-custom {
+  background: linear-gradient(90deg, #55efc4, #81ecec);
+}
+
+/* Botón morado pastel */
+.btn-morado {
+    @extend .btn; /* si usas SCSS, o en CSS normal añadimos a mano */
+    background-color: #6c5ce7; /* Morado pastel */
+    color: white;
+    border: none;
+}
+
+.btn-morado:hover {
+    background-color: #5a4bcf; /* Un poco más oscuro al pasar el mouse */
+    color: white;
+}
